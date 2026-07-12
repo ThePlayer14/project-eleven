@@ -1,5 +1,5 @@
 # project-eleven
-A native PC recompilation of the Xbox 360 version of 11eyes CrossOver PC recompilation using ReXGlue.
+A native PC recompilation of the Xbox 360 version of 11eyes CrossOver using ReXGlue.
 
 ## Building
 
@@ -9,6 +9,7 @@ If you want to build from source you'll need:
 * CMake
 * Visual Studio / MSVC / GCC / LLVM
 * Clang 20+
+* [Ninja-build](https://github.com/ninja-build/ninja/releases)
 * Your legally owned game files
 
 ## Setup
@@ -17,7 +18,26 @@ If you want to build from source you'll need:
 * Copy the path to `rexglue` or `rexglue.exe` from the downloaded SDK, then in the downloaded and *extracted* `project-eleven` archive, run `rexglue --verbose --log-file ../logs/recomp.log codegen`
 * After codegen is successful, run `cmake --preset linux-amd64-relwithdebinfo -DCMAKE_PREFIX_PATH=/path/to/rexglue-sdk` to configure (be sure to select your platform), if not sure, check `CMakePresets.json`)
 * Build the code with `cmake --build out/build/linux-amd64-relwithdebinfo` (Again, be sure to select your platform)
-* The compiled executable will be inside `out/build/linux-amd64-relwithdebinfo` (or what your platform was). Note that you still need to copy over `librexruntimerd.so`, `librexruntimerd.so`, `libTracyClientrd.so` on Linux if you don't compile using `cmake --build . --target project_eleven_codegen`.
+* The compiled executable will be inside `out/build/linux-amd64-relwithdebinfo` (or what your platform was).
+
+### Windows setup
+`cmake --preset win-amd64-relwithdebinfo -DCMAKE_PREFIX_PATH=D:\Projects\rexglue-sdk-0.8.1.68-dev.g8dadea6-win-amd64\win-amd64 -DCMAKE_MAKE_PROGRAM=D:\Code-projects\ninja-win\ninja.exe`
+
+`cmake --build out/build/win-amd64-relwithdebinfo`
+
+
+### Post-compilation tasks
+You will need to copy over the dependency libraries from `linux-amd64/lib` (on linux) or from `win-amd64/bin` (on windows).
+
+|Dependency         |Library Name       |Remarks                                           |
+|-------------------|------------------|--------------------------------------------------|
+|linux-tracy        |libTracyClient.so |no append: release `d`: debug `rd`: relwithdebinfo|
+|linux-rexruntime   |librexruntime.so  |no append: release `d`: debug `rd`: relwithdebinfo|
+|linux-xenosplugin  |librexgpu-xenos.so|no append: release `d`: debug `rd`: relwithdebinfo|
+|windows-tracy      |TracyClient.dll   |no append: release `d`: debug `rd`: relwithdebinfo|
+|windows-rexruntime |rexruntime.dll    |no append: release `d`: debug `rd`: relwithdebinfo|
+|windows-xenosplugin|rexgpu-xenos.dll  |no append: release `d`: debug `rd`: relwithdebinfo|
+
 
 ## Usage
 * Likely everything works that does on Xenia. Even the OP/ED videos likely work.
