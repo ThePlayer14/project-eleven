@@ -21,7 +21,8 @@ If you want to build from source you'll need:
 
 ## Usage
 * Likely everything works that does on Xenia. Even the OP/ED videos likely work.
-* To launch, use `./project_eleven --game_data_root="extracted/" --user_data_root="userdata/" --cache_path="cache/" --gpu_plugin=xenos --no-fullscreen`. Make sure to put your legally owned game files inside `extracted`.
+* To launch, use `./project_eleven --game_data_root="extracted/" --user_data_root="userdata/" --cache_path="cache/" --gpu_plugin=xenos --no-fullscreen`.
+* Make sure to put your legally owned game files inside `extracted`.
 * You'll need to use a controller.
 
 ## Troubleshooting
